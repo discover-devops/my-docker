@@ -1,4 +1,4 @@
-# Docker Training Course
+# Docker
 
 ## Course Overview
 
