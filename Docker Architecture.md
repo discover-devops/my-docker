@@ -1,6 +1,10 @@
 
 # Docker Architecture and Components
 
+
+![image](https://github.com/discover-devops/my-docker/assets/53135263/81ecd3a5-98c3-4a2f-99ae-2e3eed3105f8)
+
+
 Docker is a platform for developing, shipping, and running applications in containers. It consists of several components that work together to enable the creation and execution of containerized applications.
 
 ## Docker Engine
