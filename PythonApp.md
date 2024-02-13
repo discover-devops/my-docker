@@ -38,6 +38,7 @@ CMD ["python", "app.py"]
 Make sure to have a `requirements.txt` file with the following content:
 ```plaintext
 Flask==2.0.1
+Werkzeug==2.0.1
 ```
 
 Now, let's build and run the Docker container:
