@@ -70,6 +70,188 @@ Here's a list of some useful Docker commands along with their usage and examples
 12. **docker inspect**: Return low-level information on Docker objects.
    ```
    docker inspect <object_id>
+
+
+====================================================
+
+Common Docker commands along with examples to help you understand their usage:
+
+### 1. `docker --version`
+Displays the installed Docker version.
+
+docker --version
+
+
+### 2. `docker info`
+Displays system-wide information about Docker.
+
+docker info
+
+
+### 3. `docker pull`
+Pulls an image from a Docker registry (e.g., Docker Hub).
+
+docker pull nginx
+
+
+### 4. `docker run`
+Runs a container from a Docker image.
+
+docker run -d -p 80:80 --name mynginx nginx
+
+- `-d`: Run container in detached mode.
+- `-p 80:80`: Map port 80 on the host to port 80 in the container.
+- `--name mynginx`: Assign a name to the container.
+
+### 5. `docker ps`
+Lists running containers.
+
+docker ps
+
+- `docker ps -a`: Lists all containers, including stopped ones.
+
+### 6. `docker stop`
+Stops a running container.
+
+docker stop mynginx
+
+
+### 7. `docker start`
+Starts a stopped container.
+
+docker start mynginx
+
+
+### 8. `docker restart`
+Restarts a running container.
+
+docker restart mynginx
+
+
+### 9. `docker rm`
+Removes a stopped container.
+
+docker rm mynginx
+
+
+### 10. `docker rmi`
+Removes a Docker image.
+
+docker rmi nginx
+
+
+### 11. `docker images`
+Lists all Docker images on the local system.
+
+docker images
+
+
+### 12. `docker logs`
+Fetches logs of a container.
+
+docker logs mynginx
+
+
+### 13. `docker exec`
+Runs a command in a running container.
+
+docker exec -it mynginx /bin/bash
+
+- `-it`: Runs in interactive mode with a terminal.
+
+### 14. `docker build`
+Builds an image from a Dockerfile.
+
+docker build -t myapp:latest .
+
+- `-t myapp:latest`: Tags the image with the name `myapp` and tag `latest`.
+- `.`: Context path (current directory).
+
+### 15. `docker-compose up`
+Starts services defined in a `docker-compose.yml` file.
+
+docker-compose up
+
+- `docker-compose up -d`: Runs in detached mode.
+
+### 16. `docker-compose down`
+Stops and removes containers, networks, volumes, and images created by `docker-compose up`.
+
+docker-compose down
+
+
+### 17. `docker network ls`
+Lists all Docker networks.
+
+docker network ls
+
+
+### 18. `docker network create`
+Creates a new Docker network.
+
+docker network create mynetwork
+
+
+### 19. `docker volume ls`
+Lists all Docker volumes.
+
+docker volume ls
+
+
+### 20. `docker volume create`
+Creates a new Docker volume.
+
+docker volume create myvolume
+
+
+### Example Workflow
+
+1. Pull an image:
+   
+   docker pull nginx
+   
+
+2. Run a container:
+   
+   docker run -d -p 8080:80 --name webserver nginx
+   
+
+3. List running containers:
+   
+   docker ps
+   
+
+4. Check logs of the container:
+   
+   docker logs webserver
+   
+
+5. Execute a command inside the container:
+   
+   docker exec -it webserver /bin/bash
+   
+
+6. Stop the container:
+   
+   docker stop webserver
+   
+
+7. Start the container again:
+   
+   docker start webserver
+   
+
+8. Remove the container:
+   
+   docker rm webserver
+   
+
+9. Remove the image:
+   
+   docker rmi nginx
+   
+
+These commands cover the basics of using Docker for managing images, containers, networks, and volumes, and provide a solid foundation for more advanced Docker usage.
    ```
    Example: `docker inspect abc123def456`
 
