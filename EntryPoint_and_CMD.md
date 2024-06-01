@@ -1,47 +1,115 @@
-`ENTRYPOINT` and `CMD` are both instructions in a Dockerfile used to specify the default command that should be executed when a container starts. However, they have some key differences:
+In Docker, both `ENTRYPOINT` and `CMD` are instructions used to define the default commands and arguments that will be executed when a container starts. They serve different purposes and have distinct behaviors. Here's a detailed explanation with examples to illustrate their differences.
 
-1. **CMD:**
-   - `CMD` is used to provide default arguments for the entry point of the container.
-   - You can override the command specified in `CMD` by providing arguments when running the container.
-   - If a Dockerfile has multiple `CMD` instructions, only the last one will take effect.
-   - If the user provides a command when running the container, it will override the `CMD` instruction.
+### CMD
+The `CMD` instruction provides default arguments for the `ENTRYPOINT` instruction or can define a command to be executed when a container starts. If the container is run with a different command specified in `docker run`, the `CMD` will be overridden.
 
-   **Example:**
-   ```Dockerfile
-   FROM ubuntu:20.04
+**Example:**
 
-   # CMD is used to provide default arguments for ENTRYPOINT
-   CMD ["echo", "Hello, CMD!"]
-   ```
+**Dockerfile:**
+```Dockerfile
+FROM ubuntu:latest
+CMD ["echo", "Hello, World!"]
+```
 
-   To run the container:
-   ```bash
-   docker run my-container  # This will run 'echo Hello, CMD!'
-   ```
+If you build and run this Docker image, it will execute the command specified in `CMD`.
 
-2. **ENTRYPOINT:**
-   - `ENTRYPOINT` is used to set the main command and any default parameters to be passed to the command.
-   - The command specified in `ENTRYPOINT` cannot be overridden by providing arguments when running the container.
-   - If the Dockerfile has both `ENTRYPOINT` and `CMD` instructions, the `CMD` arguments will be passed as arguments to the `ENTRYPOINT` command.
+**Build and run the container:**
+```sh
+docker build -t myimage .
+docker run myimage
+```
 
-   **Example:**
-   ```Dockerfile
-   FROM ubuntu:20.04
+**Output:**
+```
+Hello, World!
+```
 
-   # ENTRYPOINT sets the main command
-   ENTRYPOINT ["echo", "Hello, ENTRYPOINT!"]
+However, if you specify a different command in `docker run`, it will override the `CMD` instruction:
 
-   # CMD provides default arguments for the ENTRYPOINT command
-   CMD ["CMD default argument"]
-   ```
+**Run with a different command:**
+```sh
+docker run myimage echo "Goodbye, World!"
+```
 
-   To run the container:
-   ```bash
-   docker run my-container  # This will run 'echo Hello, ENTRYPOINT! CMD default argument'
-   ```
+**Output:**
+```
+Goodbye, World!
+```
 
-In summary:
-- Use `CMD` when you want to provide default arguments to the command specified in `ENTRYPOINT` or when you want the user to easily override the command.
-- Use `ENTRYPOINT` when you want to set the main command and potentially include default arguments that cannot be overridden by the user.
+### ENTRYPOINT
+The `ENTRYPOINT` instruction configures a container to run as an executable. It won't be overridden by the arguments provided in `docker run` command, but those arguments will be passed as additional parameters to the `ENTRYPOINT`.
 
-It's common to see both `ENTRYPOINT` and `CMD` used together in a Dockerfile, with `ENTRYPOINT` providing the main command and `CMD` providing default arguments. This combination allows users to easily customize the container's behavior while still providing sensible defaults.
+**Example:**
+
+**Dockerfile:**
+```Dockerfile
+FROM ubuntu:latest
+ENTRYPOINT ["echo"]
+```
+
+If you build and run this Docker image, it will execute the command specified in `ENTRYPOINT`.
+
+**Build and run the container:**
+```sh
+docker build -t myentryimage .
+docker run myentryimage "Hello, World!"
+```
+
+**Output:**
+```
+Hello, World!
+```
+
+The `ENTRYPOINT` command will always run, and any additional arguments provided in `docker run` will be appended to it:
+
+**Run with different arguments:**
+```sh
+docker run myentryimage "Goodbye, World!"
+```
+
+**Output:**
+```
+Goodbye, World!
+```
+
+### Combining ENTRYPOINT and CMD
+You can combine both `ENTRYPOINT` and `CMD` in a Dockerfile. In this case, `CMD` provides default arguments to the `ENTRYPOINT` instruction.
+
+**Example:**
+
+**Dockerfile:**
+```Dockerfile
+FROM ubuntu:latest
+ENTRYPOINT ["echo"]
+CMD ["Hello, World!"]
+```
+
+**Build and run the container:**
+```sh
+docker build -t mycombinedimage .
+docker run mycombinedimage
+```
+
+**Output:**
+```
+Hello, World!
+```
+
+If you specify different arguments in `docker run`, it will override the `CMD` arguments but not the `ENTRYPOINT`:
+
+**Run with different arguments:**
+```sh
+docker run mycombinedimage "Goodbye, World!"
+```
+
+**Output:**
+```
+Goodbye, World!
+```
+
+### Summary
+- **CMD:** Sets default command and/or parameters that can be overridden from the `docker run` command line.
+- **ENTRYPOINT:** Sets the command to be executed, which is not overridden but can have its arguments appended from the `docker run` command line.
+- **Combined:** You can use `ENTRYPOINT` to define the executable and `CMD` to provide default arguments to it, which can be overridden by `docker run`.
+
+By understanding the roles and interactions of `ENTRYPOINT` and `CMD`, you can better control the behavior of your Docker containers.
