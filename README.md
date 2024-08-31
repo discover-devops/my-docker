@@ -1,5 +1,8 @@
 # Docker
 
+![image](https://github.com/user-attachments/assets/a24bdd66-a963-44d3-8128-b5b63cba0432)
+
+
 ## Course Overview
 
 This Docker training course covers fundamental to advanced Docker concepts and practices. Participants will learn containerization with Docker from the basics to advanced deployment, including orchestration, security, and CI/CD integration through a blend of theoretical knowledge and hands-on labs.
