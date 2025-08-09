@@ -6,7 +6,7 @@
 
 ---
 
-### 🔹 . **Application Containers**
+###  . **Application Containers**
 
 * **Definition**: These are containers designed to run a **single application and its dependencies**.
 * **Purpose**: Portability, isolation, consistent deployment.
